@@ -1,6 +1,7 @@
 var screenshot = require('desktop-screenshot');
 var gm = require('gm');
 var nodecr = require('nodecr');
+var google = require('google');
 var question;
 var answers;
 
@@ -47,6 +48,27 @@ function tesseract() {
 	});
 }
 
+function googleSearch() {
+	google.resultsPerPage = 20;
+//	var nextCounter = 0;
+
+	google(question, function(err, res) {
+		if (err) console.error(err)
+		console.log("Searching Google for the Question");
+		for (var i = 0; i < res.links.length; ++i) {
+			var link = res.links[i];
+			if (link.link != null) {
+				if(link.title.indexOf(answers[0]) != -1) {
+					console.log(answers[0] + " found in the Title of Top 20 Google Results.");
+				}
+				if(link.description.indexOf(answers[0]) != -1) {
+					console.log(answers[0] + " Found in the description of Top 20 Google Results.");
+				}
+			}
+		}
+	})
+}
+
 screenshot("screenshot.jpg", {width: 1920}, function(error, complete) {
 	if(error)
 		console.log("Screenshot failed", error);
@@ -57,3 +79,4 @@ screenshot("screenshot.jpg", {width: 1920}, function(error, complete) {
 });
 
 tesseract();
+googleSearch();
