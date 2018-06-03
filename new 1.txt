@@ -1,0 +1,8 @@
+Co-ordinates Top Left (Screen 1)
+
+TopLeftQ1
+26, 192
+398, 290
+TopLeftA1
+23, 312
+401, 519
